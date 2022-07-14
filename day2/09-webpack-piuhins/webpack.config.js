@@ -62,6 +62,36 @@ module.exports = {
         },
         type: "javascript/auto",
       },
+      // 处理js => 使用babel
+      {
+        test: /\.js$/,
+        use: {
+          loader: "babel-loader",
+          // 排除node_modules
+          exclude: /node_modules/,
+          options: {
+            presets: [
+              ["@babel/preset-env"],{
+                // 按需加载
+                useBuiltIns: 'usage',
+                corejs: {
+                  version: 3
+                },
+                // 指定兼容到浏览器的那个版本
+                targets: {
+                  chrome: '60',
+                  firefox: '60',
+                  ie: '9',
+                  safari: '10',
+                  edge: '17'
+                }
+              }
+              // 另一种写法可传参 可配置
+              // ["@babel/preset-env",{}]
+            ],
+          },
+        },
+      },
     ],
   },
   // 插件
@@ -74,7 +104,7 @@ module.exports = {
     new CleanWebpackPlugin(),
     new DefinePlugin({
       // 定义ejs模板引擎中的 BASE_URL => 指定网站ico图标的
-      BASE_URL: '"./"'
-    })
+      BASE_URL: '"./"',
+    }),
   ],
 };
