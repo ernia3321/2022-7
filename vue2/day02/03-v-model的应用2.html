@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 
+    <h3>您选择的省份是: {{ province }}</h3>
+    请选择省份: <select v-model="province">
+      <option value="default">请选择</option>
+      <option value="bj">北京</option>
+      <option value="sh">上海</option>
+      <option value="gz">广州</option>
+      <option value="sz">深圳</option>
+    </select> 
+    -->
+
+    <!-- <p>您选中的是:{{sex}}</p> -->
+    <!-- name属性值要一致才能互斥 -->
+    <!-- <input type="radio" name="sex" v-model='sex' value="man">man
+    <input type="radio" name="sex" v-model='sex' value="woman">woman -->
+
+    <!-- <p>您的爱好是: {{loves}}</p>
+    <input type="checkbox" name="game" v-model=loves value="玩游戏">玩游戏
+    <input type="checkbox" name="music" v-model=loves value="听音乐">听音乐
+    <input type="checkbox" name="basketball" v-model=loves value="打篮球">打篮球
+    <input type="checkbox" name="eat" v-model=loves value="吃东西">吃东西
+    <input type="checkbox" name="treenp" v-model=loves value="吹牛皮">吹牛皮 -->
+
+  </div>
+
+  <script>
+    Vue.config.productionTip = false
+
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        province: 'default',
+        sex: 'man',
+        // 多选框需要通过数组来收集多个value值
+        loves: []
+      },
+      methods: {}
+    });
+  </script>
+</body>
+
+</html>

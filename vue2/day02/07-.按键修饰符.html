@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <style>
+    .dv1 {
+      width: 200px;
+      height: 200px;
+      background-color: aquamarine;
+    }
+    .dv2 {
+      width: 150px;
+      height: 150px;
+      background-color: salmon;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <!-- keyup: 键盘抬起 -->
+    <input type="text" @keyup.enter="show" v-model="num">
+    <input type="text" @keyup.esc="show" v-model="num">
+    <!-- 以下写法已经在vue3中失效 -->
+    <!-- <input type="text" @keyup.13="show" v-model="num"> -->
+    <input type="text" @keyup.a="show" v-model="num">
+    <!-- ctrl、shift、alt、window不能这样使用 -->
+    <!-- <input type="text" @keyup.ctrl="show" v-model="num"> -->
+  </div>
+  <script>
+    Vue.config.productionTip = false
+
+    // 自定义Code
+    Vue.config.keyCodes.a = 88
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        num: '',
+      },
+      methods: {
+        show(e){
+          // console.log(e.target.value);
+          console.log(this.num);
+        }
+      }
+    });
+
+  </script>
+</body>
+
+</html>

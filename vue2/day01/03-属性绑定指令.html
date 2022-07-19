@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <input type="text" v-bind:value="msg + '用户名'"><br>
+    <input type="text" v-bind:value="msg"><br>
+    <a :href="url">跳转到百度</a><br>
+    <img :src="imgUrl" alt="">
+  </div>
+  <script>
+        Vue.config.productionTip = false
+    var vm = new Vue({
+        el: '#app',
+        data: {
+          msg: '请输入',
+          url: 'http://www.baidu.com',
+          imgUrl: '../../许老师的项目/06-webpack-img/bulid/imgs/1-5636b.jpg'
+        },
+        methods: {
+          
+        }
+    });
+    
+  </script>
+</body>
+
+</html>

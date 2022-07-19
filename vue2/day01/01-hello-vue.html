@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 引入本地vue.js 此时页面上就多了个Vue构造函数 -->
+    <!-- <script src="../vue.js"></script> -->
+    <!-- 通过CDN的方式引入vue ↓ -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  </head>
+  <body>
+
+    <!-- 模板 -->
+    <!-- 配置中只能写js表达式不能写js渔具 -->
+    <div id="app">
+      <h2>{{msg}}</h2>
+      <!-- js表达式 -->
+      <h2>{{2 < 1 ? msg: '666'}}</h2>
+      <h2>{{1 + 1}}</h2>
+      <!-- js语句 -->
+      <!-- <h2>{{if(2 > 1){console.log('666');}}}</h2> -->
+    </div>
+
+
+    <script>
+        // 关闭生产环境提示
+        // config 配置
+        Vue.config.productionTip = false
+      // 创建vue实例
+        // new Vue({
+        // el: document.getElementById('#app')
+        // 写法一:
+        // el用于制动当前Vue实例为那个容器服务，值通常为css选择器字符串
+        // el: "#app",
+        // data中用于存储数据，数据供el所指定的容器去使用，值有两种写法，
+        // data: {
+        //          msg: "hello vue ~",
+        //      },
+        // });
+        
+
+        // mv vm
+        let vm = new Vue({
+            data: {
+                msg: 'hello vue ~'
+            }
+        })
+        // 写法二: 得到vue实例再挂载
+        // 指定el属性
+        // mount: 挂载
+        vm.$mount('#app')
+    </script>
+  </body>
+</html>

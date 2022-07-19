@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- v-if: 通过元素的创建和销毁来控制元素的显示和隐藏
+    可能一次都不创建（条件初始值为false）
+    有较高的切换开销 因为需要频繁的创建和销毁元素 -->
+    <p v-if="flag">海底月是天上月</p>
+    <p v-else="flag">啦啦啦~</p>
+
+    <!-- v-show: 通过元素的css样式（display:none）来控制元素的显示和隐藏
+    肯定要创建一次（不管条件初始值是false还是true） -->
+    <p v-show="flag">眼前人是心上人</p>
+
+    <hr>
+
+    <p v-if="status == 'A'">优秀</p>
+    <p v-else-if="status == 'B'">良好</p>
+    <p v-else="status == 'C'">还要努力</p>
+  </div>
+  <script>
+    Vue.config.productionTip = false
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        flag: true,
+        status: 'A',
+      },
+      methods: {}
+    });
+  </script>
+</body>
+
+</html>

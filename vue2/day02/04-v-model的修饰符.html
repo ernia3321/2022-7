@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- .number：将输入值转化为数字类型
+    想要严格限制输入框只能允许输入数字，请使用属性type="number" -->
+    <!-- <input type="text" v-model="num" @input="checkNumber"> -->
+
+    <!-- alt + shift + ↑/↓ 复制一行并粘贴 -->
+    .number<br>
+    <input type="text" v-model.number="num"><br>
+
+    <!-- .trim 自动去除输入框前后（首尾）的空格 -->
+    .trim<br>
+    <input type="text" v-model.trim="str"><br>
+    <!-- .lazy: 当天家了.lazy修饰符后，双向绑定的数据就不同步了，
+        相当于input输入框失去焦点后触发的change事件中同步 -->
+    .lazy<br>
+    <input type="text" v-model.lazy="lazy" @change="show"><br>
+  </div>
+  <script>
+        Vue.config.productionTip = false
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            num: '',
+            str: '',
+            lazy: '',
+        },
+        methods: {
+            // checkNumber(){
+            //     if(Number(this)){
+            //         console.log('数字');
+            //     }else{
+            //         console.log('非数字');
+            //     }
+            // }
+
+
+            // show(){
+            //     this.lazy ='#' + this.lazy + '#'
+            // }
+        }
+    });
+  </script>
+</body>
+
+</html>

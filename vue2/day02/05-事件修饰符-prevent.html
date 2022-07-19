@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    .prevent
+    <form @submit.prevent="mySubmit">
+        <input type="submit" value="提交">
+    </form>
+
+    <a href="http://www.baidu.com" @click.prevent="goto">跳转到百度</a>
+  </div>
+  <script>
+        Vue.config.productionTip = false
+    var vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {
+            mySubmit(){
+                location.href = 'http://www.baidu.com'
+            }
+        }
+    });
+  </script>
+</body>
+
+</html>

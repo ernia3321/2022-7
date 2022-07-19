@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 第一个参数 -->
+    <input type="text" v-model.number="smg">
+    <!-- 运算符 -->
+    <select v-model="province">
+        <option value="+"> + </option>
+        <option value="-"> - </option>
+        <option value="*"> * </option>
+        <option value="/"> / </option>
+    </select>
+    <!-- 第二个参数 -->
+    <input type="text" v-model.number="mmg">
+    <button @click="getResult"> = </button>
+    <!-- 运算结果 -->
+    <input type="text" v-model.number="ssg">
+  </div>
+  <script>
+        Vue.config.productionTip = false
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            smg: '',
+            mmg: '',
+            ssg: '',
+            province: '+',
+        },
+        methods: {
+            getResult(){
+                // switch(this.province){
+                //     case '+': this.ssg = this.smg + this.mmg
+                //     break;
+                //     case '-': this.ssg = this.smg - this.mmg
+                //     break;
+                //     case '*': this.ssg = this.smg * this.mmg
+                //     break;
+                //     case '/': this.ssg = this.smg / this.mmg
+                //     break;
+                // }
+
+                // 这里的province会被当做单纯的字符串来解析 而不是运算符
+                // this.ssg = this.smg + this.province + this.mmg
+
+                // 将eval中的内容当做js代码来执行
+                // 缺点：存在安全隐患不建议使用
+                this.ssg = eval(this.smg + this.province + this.mmg)
+            }
+        }
+    });
+  </script>
+</body>
+
+</html>

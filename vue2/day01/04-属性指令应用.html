@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <style>
+    .red{
+      color: red;
+    }
+    .blue{
+      color: blue;
+    }
+    .fsz{
+      font-size: 20px;
+    }
+    .active{
+      background-color: yellow;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <button @click="blue">变蓝</button>
+    <button @click="red">变红</button>
+    <!-- 绑定一个class -->
+    <p :class="color">你是大千世界尘埃等闲</p>
+    <!-- 绑定多个class 下面写法不对 会将class值作为一个整体 -->
+    <!-- <p :class="color fontSize">你是大千世界尘埃等闲</p> -->
+
+    <!-- 绑定多个class 写成数组形式 -->
+    <p :class="[color,fontSize]">你是大千世界尘埃等闲</p>
+
+    <!-- 根据条件 绑定class -->
+    <p :class="[2 < 1 ? colorRed : colorBlue , fontSize]">你是大千世界尘埃等闲</p>
+
+    <!-- 数组嵌套对象 -->
+    <!-- active的样式是否添加到p标签上 取决于iActive的值 -->
+    <!-- 如果isActive的值为true则添加 反之则不加 -->
+    <p :class="[colorBlue , {active: isActive}]">你是大千世界尘埃等闲</p>
+
+    <!-- 对象的写法 -->
+    <p :class="{active: isActive}">也是我仅有的风花雪月</p>
+    <button @click="bianhua">改变下面字体大小</button>
+    <p :class="styleObj">也是我仅有的风花雪月</p>
+  </div>
+  <script>
+    Vue.config.productionTip = false
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        msg: 'hello',
+        color: 'red',
+        colorRed: 'red',
+        colorBlue: 'blue',
+        fontSize: 'fsz',
+        isActive: true,
+        styleObj: {
+          active: true,
+          fsz: false,
+        },
+      },
+      methods: {
+        blue(){
+          this.color = 'blue'
+        },
+        red(){
+          this.color = 'red'
+        },
+        bianhua(){
+          this.styleObj.fsz= true
+        },
+      }
+    });
+  </script>
+</body>
+
+</html>

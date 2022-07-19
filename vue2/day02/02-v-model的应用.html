@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <form>
+        用户名：<br><input type="text" v-model="userInfo.username"><br>
+        密码：<br><input type="password" v-model="userInfo.password"><br>
+        确认密码：<br><input type="password" v-model="userInfo.cpassword"><br>
+        <button type="submit" @click="login">登录</button>
+    </form>
+  </div>
+  <script>
+        Vue.config.productionTip = false
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            // username: 'admin',
+            // password: '',
+            // cpassword: '',
+            userInfo: {
+                username: 'admin',
+                password: '',
+                cpassword: '',
+            },
+        },
+        methods: {
+            login(){
+                // console.log(this.username);
+                // console.log(this.password);
+                // console.log(this.cpassword);
+
+                console.log(this.userInfo);
+
+
+            }
+        }
+    });
+  </script>
+</body>
+
+</html>
