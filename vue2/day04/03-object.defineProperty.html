@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+    // Object.defineProperty(obj, prop, desc) 
+    // obj: 要定义的对象
+    // prop: 要定义的属性
+    // desc: 属性描述符
+    // 方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性，并返回此对象。
+    let obj = {}
+    Object.defineProperty(obj, 'name', {
+      // 可修改(写入)
+      // writable: true,
+      // 可删除
+      // configurable: true,
+      // 可枚举(遍历)
+      // enumerable: true,
+      // 属性值
+      // value: '张三',
+
+      get(){
+        return '李四'
+      },
+      set(val){
+        console.log(val)
+      }
+    })
+    // console.log(obj.name)
+    // writable
+    // obj.name = '李四'
+
+    // configurable
+    // delete obj.name
+    // console.log(obj.name)
+    
+    // enumerable
+    // for(var key in obj){
+    //   console.log(obj[key])
+    // }
+
+    console.log(obj.name)
+    obj.name = '王五'
+
+
+    // obj.__proto__.sex = '男'
+    // 检测自身的属性
+    // console.log(obj.hasOwnProperty('sex')) // true
+    // 检测自身以及原型上的属性
+    // console.log('sex' in obj) // true
+
+  </script>
+</body>
+</html>

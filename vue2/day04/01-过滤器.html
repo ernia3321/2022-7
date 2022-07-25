@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  </head>
+
+  <body>
+    <div id="app">{{time | formatDate}}</div>
+    <script>
+      Vue.config.productionTip = false;
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          // 当前时间的毫秒数
+          // time: 1658368204242,
+
+          time : new Date
+        },
+        methods: {},
+        filters: {
+          // 局部过滤器
+          formatDate(val) {
+            let dt = new Date(val);
+            let year = dt.getFullYear();
+            let month = dt.getMonth() + 1;
+            let data = dt.getDate();
+            let hh = dt.getHours();
+            let mm = dt.getMinutes();
+            let ss = dt.getSeconds();
+            return `${year}年-${month}月-${data}日-${hh}时-${mm}分-${ss}秒`;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

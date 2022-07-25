@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 使用user组件 -->
+    <user></user>
+    <hr>
+    <!-- 使用product组件 -->
+    <product></product>
+
+  </div>
+  <script>
+    Vue.config.productionTip = false
+    // 非单文件方式定义组件 || 单文件方式定义组件 .vue后缀的文件
+
+    // 使用组件三步骤
+    // 1、通过Vue.extend(options)定义组件
+    // 2、通过Vue.component('组件名', 定义好的组件)注册全局组件
+    // 3、在页面结构中通过<组件名></组件名>使用组件
+
+    // 定义user组件
+    let user = Vue.extend({
+      // warn: 选项"el"只能在使用"new"关键字创建实例期间使用
+      // el: '#app', 违背设计组件的初心
+      // template: 将来展示在页面上的结构
+      // 组件有且只能有一个根元素
+      template: `
+      <div>
+        <h3 style='color: red'>用户信息</h3>
+        <h3 @click='show'>用户名字: {{ userName }}</h3> 
+      </div>
+      `,
+      // warn: "data" 选项应该是一个函数返回一个对象
+      data(){
+        return {
+          userName: '老许'
+        }
+      },
+      methods: {
+        show(){
+          // 此处的this指向不是vue实例 而是当前组件实例
+          console.log(this)
+        }
+      }
+    })
+
+    // 定义product组件 => 简写 
+    // => vue会判断该对象是不是组件 如果是调用Vue.extend帮我们定义主键 
+    
+    // 全局注册user组件
+    Vue.component('user', user)
+    // 定义组件并且全局注册product组件 => 简写
+    Vue.component('product', {
+      template: `
+      <div>
+        <h3 style='color: orange'>商品信息</h3>
+        <h3 >商品名字: {{ productName }}</h3>  
+      </div>
+      `,
+      data(){
+        return {
+          productName: '外星人'
+        }
+      }
+    })
+
+    var vm = new Vue({
+      // 指定vue实例服务于哪个容器
+      el: '#app',
+      data: {},
+      methods: {}
+    });
+
+    // var obj1 = {x: 100}
+    // obj1和obj2地址值相同 访问的是同一块内存空间
+    // var obj2 = obj1
+    // obj2.x = 200
+    // console.log(obj1.x) // 200
+
+    // 函数返回对象 每次函数执行都会得到一个新的对象
+    // function fn(){
+    //   return {x: 100}
+    // }
+    // 函数执行得到obj1
+    // var obj1 = fn()
+    // 函数执行得到obj2
+    // var obj2 = fn()
+    // console.log(obj1 == obj2) // false
+    // obj2修改数据
+    // obj2.x = 200
+    // obj1不受任何影响
+    // console.log(obj1.x) // 100
+
+  </script>
+</body>
+
+</html>

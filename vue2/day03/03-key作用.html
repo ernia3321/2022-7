@@ -1,38 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-  </head>
 
-  <body>
-    <div id="app">
-        <ul>
-            <!-- key：作为虚拟dom进行diff算法时的唯一标识 -->
-            <!-- 期数据类型只能是字符串或者数字 -->
-            <li v-for="(item,index) in userList" :key="item.id">
-                索引为：{{index + 1}} - {{item.id}} - {{item.name}} - {{item.age}}
-            </li>
-        </ul>
-    </div>
-    <script>
-      Vue.config.productionTip = false;
-      var vm = new Vue({
-        el: "#app",
-        data: {
-          userList: [
-            // id: 表示该数据的唯一标识 永远不可能重复
-            { id: 1, name: "张三", age: 18 },
-            { id: 2, name: "李四", age: 25 },
-            { id: 3, name: "王五", age: 34 },
-            { id: 4, name: "赵六", age: 11 },
-          ],
-        },
-        methods: {},
-      });
-    </script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <style>
+    ul {
+      list-style: none;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 
+面试题：react、vue中的key有什么作用？（key的内部原理）
+
+1. 虚拟DOM中key的作用：
+key是虚拟DOM对象的标识，当数据发生变化时，Vue会根据【新数据】生成【新的虚拟DOM】, 
+随后Vue进行【新虚拟DOM】与【旧虚拟DOM】的差异比较，比较规则如下：
+
+2.对比规则：
+(1).旧虚拟DOM中未找到与新虚拟DOM相同的key
+		创建新的真实DOM，随后渲染到到页面。
+(2).旧虚拟DOM中找到了与新虚拟DOM相同的key：
+		①.若虚拟DOM中内容没变, 直接使用之前的真实DOM！(就地复用策略, 减少dom创建 提升性能)
+		②.若虚拟DOM中内容变了, 则生成新的真实DOM，随后替换掉页面中之前的真实DOM。
+
+3. 用index作为key可能会引发的问题：
+	1. 若对数据进行：逆序添加、逆序删除等破坏顺序操作:
+					会产生没有必要的真实DOM更新 ==> 界面效果没问题, 但效率低。
+	2. 如果结构中还包含输入类的DOM：
+					会产生错误DOM更新 ==> 界面有问题。
+
+4. 开发中如何选择key?
+	1.最好使用每条数据的唯一标识作为key, 比如id、手机号、身份证号等唯一值。
+	2.如果不存在对数据的逆序添加、逆序删除等破坏顺序操作，仅用于渲染列表用于展示, 使用index作为key是没有问题的。
+-->
+
+  <div id="app">
+    <button @click="add">添加用户</button>
+    <ul>
+      <!-- key: 作为虚拟dom进行diff算法时的唯一标识 -->
+      <!-- 其数据类型只能是 字符串 或者 数字 -->
+      <li v-for="(item,index) in userList" :key="index">
+        {{item.name}} <input type="text">
+      </li>
+    </ul>
+  </div>
+  <script>
+    Vue.config.productionTip = false
+
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        userList: [
+          { id: 1, name: '张三', age: 18 },
+          { id: 2, name: '李四', age: 20 },
+          { id: 3, name: '王五', age: 17 }
+        ],
+      },
+      methods: {
+        add() {
+          this.userList.unshift({
+            id: 4, name: '赵六', age: 18
+          })
+        }
+      }
+    });
+  </script>
+</body>
+
 </html>

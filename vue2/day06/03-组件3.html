@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app"></div>
+
+  <template id="hello">
+    <h3>hello</h3>
+  </template>
+  <script>
+    Vue.config.productionTip = false
+
+    // 定义组件
+    let hello = Vue.extend({
+      template: '#hello'
+    })
+    // 查看组件结构
+    console.dir(hello)
+    console.dir(hello.prototype.__proto__)
+
+    // 注册组件
+    Vue.component('hello', hello)
+
+    var vm = new Vue({
+      el: '#app',
+      data: {},
+      methods: {}
+    });
+    console.log(vm.__proto__)
+    console.log(hello.prototype.__proto__ == vm.__proto__) // true
+
+    // vue组件通过原型链查找的过程中会经过vue实例和Vue原型
+    // 所以以后需要所有组件共享的数据都放到vue原型上 
+    // => 组件传参的方式之一  Vue.prototype.name = '张三'
+    // => 插件 Vue.use(plugins)
+  </script>
+</body>
+
+</html>

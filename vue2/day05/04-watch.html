@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  </head>
+
+  <body>
+    <div id="app">{{ student.name }}</div>
+    <script>
+      Vue.config.productionTip = false;
+
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          student: {
+            name: "张三",
+          },
+        },
+        // 侦听器
+        // 侦听器本质是一个函数 需要侦听谁 就将侦听的属性当作函数名放到watch中即可
+        // 当被监视的属性发生变化时，回调函数自动调用，执行函数中的代码
+        watch: {
+          // 'student.name': {
+          //   handler(newVal, oldVal) {
+          //     console.log('newVal:' + newVal, 'oldVal:' + oldVal)
+          //   },
+          //   // 表示页面初次渲染好之后，就立即触发当前的 watch 侦听器
+          //   // 执行handler函数中的内容
+          //   immediate: true
+          // },
+          // student: {
+          //   // handler处理函数
+          //   handler(newVal, oldVal) {
+          //     console.log('newVal:' + newVal, 'oldVal:' + oldVal)
+          //   },
+          //   // 开启深度监听 => 递归
+          //   deep: true
+          // }
+          // 简写 => 在不需要添加配置项的情况下
+          // student(newVal, oldVal){
+          //   console.log('newVal:' + newVal, 'oldVal:' + oldVal)
+          // },
+          // 简写 => 需要添加配置项的情况下
+          // student: {
+          //   handler(){
+          //   },
+          //   deep: true
+          // }
+        },
+        methods: {},
+      });
+
+      // 第二种方式 => js中添加侦听器 比如根据条件成立与否添加
+      // vm.$watch('student', function(){
+      //   console.log(111)
+      // }, { deep: true })
+    </script>
+  </body>
+</html>

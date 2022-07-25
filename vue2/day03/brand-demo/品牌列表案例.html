@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>品牌列表案例</title>
+    <link rel="stylesheet" href="./lib/bootstrap.css" />
+    <link rel="stylesheet" href="./css/brandlist.css" />
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 卡片区域 -->
+      <div class="card">
+        <div class="card-header">添加品牌</div>
+        <div class="card-body">
+          <!-- 添加品牌的表单区域 -->
+          <form>
+            <div class="form-row align-items-center">
+              <div class="col-auto">
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">品牌名称</div>
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="请输入品牌名称"
+                    v-model.trim="brand"
+                    @keyup.enter="add"
+                  />
+                </div>
+              </div>
+              <div class="col-auto">
+                <button
+                  type="button"
+                  class="btn btn-primary mb-2"
+                  @click="add()"
+                >
+                  添加
+                </button>
+              </div>
+
+              <div class="col-auto">
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">品牌名称</div>
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="请输入搜索内容"
+                    v-model="keywords"
+                    @keyup.enter="search"
+                  />
+                </div>
+              </div>
+
+              <div class="col-auto">
+                <button
+                  type="button"
+                  class="btn btn-primary mb-2"
+                  @click="search"
+                >
+                  搜索
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- 表格区域 -->
+      <table class="table table-bordered table-hover table-striped" v-if="falg">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">品牌名称</th>
+            <th scope="col">状态</th>
+            <th scope="col">创建时间</th>
+            <th scope="col">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- 渲染表格内容区域 -->
+          <!-- <tr v-for="item in carList"> -->
+          <!-- <tr v-for="item in searchList"> -->
+          <tr v-for="item in search()">
+            <td>{{item.id}}</td>
+            <td>{{item.brand}}</td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input
+                  type="checkbox"
+                  class="custom-control-input"
+                  :id="'customSwitch'+item.id"
+                  v-model="item.status"
+                />
+                <label
+                  class="custom-control-label"
+                  :for="'customSwitch'+item.id"
+                  >{{item.status ? '已启用' : '已禁用'}}</label
+                >
+              </div>
+            </td>
+
+            <td>{{item.time | formatDate('YYYY-MM-DD')}}</td>
+            <td>
+              <!-- javascript:; 表示a标签不会跳转 而是用来点击实现某些功能 -->
+              <a href="javascript:;" @click="rem(item.id)">删除</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div v-else>没有该数据</div>
+    </div>
+
+    <script src="./lib/vue-2.6.12.js"></script>
+    <script src="./lib/dayjs.min.js"></script>
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          // 从服务端请求过来的数据
+          carList: [
+            { id: 1, brand: "宝马", status: false, time: new Date() },
+            { id: 2, brand: "奔驰", status: true, time: new Date() },
+            { id: 3, brand: "奥迪", status: false, time: new Date() },
+          ],
+          brand: "",
+          nextId: 4,
+          keywords: "",
+          falg: true,
+          searchList: [],
+        },
+        methods: {
+          // 删除
+          rem(id) {
+            // this.carList = this.carList.filter((item)=>item.id != id)
+            // 方法二
+            this.carList.some((item, index) => {
+              item.id == this.id;
+              this.carList.splice(index, 1);
+              return true;
+            });
+          },
+          // 添加
+          add() {
+            if (this.brand == "") return alert("输入的内容不能为空");
+            let d = this.carList.find((item) => {
+              return item.brand == this.brand;
+            });
+
+            // 判断是否重复
+            if (d) {
+              alert("品牌重复");
+              return;
+            } else {
+              this.carList.push({
+                id: this.nextId,
+                brand: this.brand,
+                status: false,
+                time: new Date(),
+              });
+              this.nextId++;
+            }
+            this.brand = "";
+          },
+          // 搜索
+          search() {
+            // let result = this.carList.filter((item)=>item.brand.includes(this.keywords))
+
+            // if(result){
+
+            //   this.carList = [result]
+            // }else{
+            //   this.falg = false
+            // }
+
+            // 第二种方式
+            let result = this.carList.filter((item) =>
+              item.brand.includes(this.keywords)
+            );
+            if (result) {
+              return result;
+            } else {
+              this.falg = false;
+            }
+          },
+        },
+        // 页面渲染（挂载）完毕
+        /*mounted () {
+          let xhr = new XMLHttpRequest()
+          xhr.open('get','http://locahose:3000/carList',true)
+          xhr.send(null)
+          xhr.onload = function () {
+            // 获取到数据并存储到本地
+            localStorage.setItem('carList',xhr.responseText)
+            // 将数据赋值给carList 为了页面渲染
+            
+          }
+
+          // localStorage.setItem('carList',JSON.stringify(this.carList))
+        },*/
+        // 定义过滤器
+        filters: {
+          // 过滤器处理的逻辑 处理后要返回结果 结果会渲染到界面上
+          formatDate(val,pattern = 'YYYY-MM-DD HH:mm:ss') {
+            // let dt = new Date(val);
+            // let year = dt.getFullYear();
+            // let month = dt.getMonth() + 1;
+            // let data = dt.getDate();
+            // let hh = dt.getHours();
+            // let mm = dt.getMinutes();
+            // let ss = dt.getSeconds();
+            // return `${year}年-${month}月-${data}日-${hh}时-${mm}分-${ss}秒`;
+
+
+            // YYYY-MM-DD HH:mm:ss 时间格式
+            // return dayjs(val).format('YYYY-MM-DD HH:mm:ss')
+            
+            
+            return dayjs(val).format(pattern)
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

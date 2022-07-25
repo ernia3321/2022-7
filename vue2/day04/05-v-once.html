@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- v-once这个指令不需要任何表达式，它的作用就是定义它的元素或组件只会渲染一次，包括元素或者组件的所有子节点。首次渲染后，不再随着数据的改变而重新渲染。也就是说使用v-once，那么该块都将被视为静态内容
+可用于优化性能 -->
+    <p v-once>仅用于展示的数据:{{number}}</p>
+    <p>用于修改的数据:{{number}}</p>
+    <button @click='number += 1'>加1</button>
+  </div>
+  <script>
+    Vue.config.productionTip = false
+
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        number: 1
+      },
+      methods: {}
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <p>{{ student }}</p>
+      <button @click="addAge">添加年龄</button>
+    </div>
+    <script>
+      Vue.config.productionTip = false;
+
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          student: {
+            name: "张三",
+          },
+        },
+        // defineReactive(data)
+        // =>  Object.defineProperty(data.student,name,
+        // {get,set(val){ oldVal = val; render() }})
+
+        methods: {
+          addAge() {
+            // 受现代 JavaScript 的限制 (以及废弃 Object.observe)，Vue 不能检测到对象属性的添加或删除 由于 Vue 会在初始化实例时对data中的属性执行 getter/setter 转化过程，所以属性必须在 data 对象上存在才能让 Vue 转换它
+
+            // 如果在vue实例执行完响应式和数据代理操作之后添加新的属性到实例上，它不会触发视图更新
+            // this.student.age = 18
+
+            // 如果想要数据是响应式的并且能触发视图更新 使用Vue.set()
+            // this.$set(target, key, val) 底层调用的是Object.defineProperty(target, key, val)
+
+            // Vue.set(this.student, 'age', 18)
+            this.$set(this.student, "age", 18);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,39 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-  </head>
-  <body>
-    <div id="app">
-      <button @click="Go">Go!</button>
-      <button @click="Stop">Stop!</button>
-      <h2>{{smg}}</h2>
-    </div>
-    <script>
-      Vue.config.productionTip = false;
-      var vm = new Vue({
-        el: "#app",
-        data: {
-          smg: "睡毛线，起来嗨！！！",
-          timeId: null,
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <button @click="run">跑起来</button>
+    <button @click="stop">停止</button>
+    <p> {{ msg }}</p>
+  </div>
+  <script>
+    Vue.config.productionTip = false
+
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        msg: '别浪, 猥琐发育, 后期再团 ~',
+        timeId: ''
+      },
+      methods: {
+        run() {
+          // 判断timeId是否存在 存在代码就不往下执行
+          if(this.timeId) return
+          // 1、保存this指向 后面使用到this的地方都改成that
+          // var that = this
+          // 2、将函数改成箭头函数
+          this.timeId = setInterval(() => {
+            // this => vue实例
+            // 定时器的this => window => window.msg = undefined
+
+            // 截取第一个字符
+            var start = this.msg.substring(0, 1)
+            // 截取第一个字符后面的所有字符
+            var end = this.msg.substring(1)
+            // 为msg重新赋值
+            this.msg = end + start
+
+            // this.msg = this.msg.substring(1) + this.msg.substring(0, 1)
+          }, 500)
         },
-        methods: {
-          Go() {
-            if (this.timeId != null) return;
-            this.timeId = setInterval(() => {
-              this.smg = this.smg.substring(1) + this.smg.substr(0, 1);
-            }, 500);
-          },
-          Stop() {
-            clearInterval(this.timeId);
-            this.timeId = null;
-          },
-        },
-      });
-    </script>
-  </body>
+        stop() {
+          clearInterval(this.timeId)
+        }
+      }
+    });
+  </script>
+</body>
+
 </html>

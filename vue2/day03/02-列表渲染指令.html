@@ -1,58 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-  </head>
 
-  <body>
-    <div id="app">
-      <ul>
-        <!-- 遍历数组（非常常见） -->
-        <!-- userList 表示的是要遍历的对象 -->
-        <!-- item 表示的是要遍历的对象中的每一项 -->
-        <li v-for="(item,index) in userList">
-          索引为： {{index + 1}} - {{item.id}} - {{item.name}} - {{item.age}}
-        </li>
-        <hr />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
 
-        <!-- 遍历对象（常见） -->
-        <li v-for="(val,key) in student">健：{{key}} - 值：{{val}}</li>
-        <hr />
+<body>
+  <div id="app">
+    <ul>
+      <!-- 遍历数组 (非常常见) -->
+      <!-- userList 表示的是要遍历数组  -->
+      <!-- item 表示的是要遍历数组中的每一项 -->
+      <!-- index 表示数组元素的索引 -->
+      <li v-for="(item, index) in userList">
+        索引为: {{index + 1}} - {{item.id}} - {{item.name}} - {{item.age}}
+      </li>
 
-        <!-- 遍历字符串(少用) -->
-        <!-- char代表每一个字符 -->
-        <li v-for="(char,index) in str">{{char}} - {{index + 1}}</li>
-        <hr />
+      <hr>
+      <!-- 遍历对象 (常见) -->
+      <li v-for="(val, key) in student">
+        键: {{key}} - 值: {{val}}
+      </li>
 
-        <!-- 遍历指定次数 -->
-        <li v-for="index in 10">{{index}}</li>
-      </ul>
-    </div>
-    <script>
-      Vue.config.productionTip = false;
-      var vm = new Vue({
-        el: "#app",
-        data: {
-          userList: [
-            // id: 表示该数据的唯一标识 永远不可能重复
-            { id: 1, name: "张三", age: 18 },
-            { id: 2, name: "李四", age: 25 },
-            { id: 3, name: "王五", age: 34 },
-            { id: 4, name: "赵六", age: 11 },
-          ],
-          student: {
-            id: 5,
-            name: "齐七",
-            age: 30,
-          },
-          str: "大河之剑天上来",
+      <hr>
+      <!-- 遍历字符串 (少见) -->
+      <!-- char 代表每一个字符 -->
+      <li v-for="(char, index) in str">
+        {{char}} - {{index}}
+      </li>
+
+      <hr>
+      <!-- 遍历指定次数 (少见) -->
+      <li v-for="index in 10">
+        {{ index }}
+      </li>
+    </ul>
+  </div>
+  <script>
+    Vue.config.productionTip = false
+
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        userList: [
+          // id: 表示该数据的唯一标识 永远不可能重复
+          { id: 1, name: '张三', age: 18 },
+          { id: 2, name: '李四', age: 20 },
+          { id: 3, name: '王五', age: 17 },
+          { id: 4, name: '赵六', age: 21 }
+        ],
+        student: {
+          id: 5, name: '齐七', age: 30
         },
-        methods: {},
-      });
-    </script>
-  </body>
+        str: '大河之剑天上来'
+      },
+      methods: {}
+    });
+  </script>
+</body>
+
 </html>

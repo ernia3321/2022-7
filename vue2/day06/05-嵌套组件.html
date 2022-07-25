@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <app></app>
+  </div>
+
+  <!-- 模板 -->
+  <template id="app2">
+    <div>
+      <h3>App</h3>
+      <animal></animal>
+    </div>
+  </template>
+
+  <template id="animal">
+    <div>
+      <h3>Animal</h3>
+      <!-- 嵌套dog组件 -->
+      <dog></dog>
+    </div>
+  </template>
+
+  <template id="dog">
+    <div>
+      <h3>Dog</h3>
+      <!-- 嵌套kerky组件 -->
+      <kerky></kerky>
+    </div>
+  </template>
+
+  <template id="kerky">
+    <div>
+      <h3>Kerky</h3>
+    </div>
+  </template>
+  <script>
+    Vue.config.productionTip = false
+
+    Vue.component('animal', {
+      template: '#animal'
+    })
+
+    Vue.component('dog', {
+      template: '#dog'
+    })
+
+    Vue.component('kerky', {
+      template: '#kerky'
+    })
+
+    var vm = new Vue({
+      el: '#app',
+      data: {},
+      methods: {},
+      components: {
+        app: {
+          template: '#app2'
+        }
+      }
+    });
+
+  </script>
+</body>
+
+</html>

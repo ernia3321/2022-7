@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- <my-com></my-com> -->
+
+    <mycom></mycom>
+    <mycom />
+    <!-- 不用使用脚手架时，单标签会导致复用组件后续无法渲染的问题 -->
+    <!-- <mycom /> -->
+    <!-- <mycom /> -->
+  </div>
+
+  <!-- .vue文件中也是通过这种方式定义页面结构 -->
+  <!-- template模板 只会将template中的内容渲染到页面上 不会将template标签渲染到页面上 -->
+  <template id="myCom">
+    <div>
+      <h3>{{ msg }}</h3>
+    </div>
+  </template>
+
+  <script>
+    Vue.config.productionTip = false
+
+    // 注意事项
+    // 1、template有且只能有一个根元素
+    // 2、不要写el属性 定义的组件都要交给vm管理 由vm中的el来决定服务于哪个容器
+    // 3、如果自定义组件名使用了驼峰命名法(myCom) 在页面中使用的时候要用-分割组件名并且转为小写(my-com)
+    // 4、组件名不要使用已有的元素名称，比如：div、span都不行。
+    // 5、组件中的data必须定义为一个函数 函数中必须返回一个对象 避免组件在复用时 数据直接相互引用导致冲突问题
+    // 6、不用使用脚手架时，单标签会导致复用组件后续无法渲染的问题
+    // 7、组件中的this指向的是当前组件的实例对象
+    // 8、使用name配置项指定组件在开发者工具中呈现的名字
+
+    Vue.component('mycom', {
+      // 使用name配置项指定组件在开发者工具(vue-dev-tool)中呈现的名字
+      name: 'haHa',
+      template: '#myCom',
+      // 为什么data必须是一个函数且返回一个对象
+      // 如果是对象的话多个页面可能会复用这个组件 如果其中一个页面对组件data进行修改的话 其它页面的data也会发生变化 造成数据冲突 (引用问题)
+      // 而定义成一个函数 每次返回一个新的对象 保证了对象的唯一性 避免了组件数据修改影响其他组件数据
+      data() {
+        return { msg: 'hello component ~' }
+      }
+    })
+
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        title: '哈哈哈'
+      },
+      methods: {}
+    });
+  </script>
+</body>
+
+</html>

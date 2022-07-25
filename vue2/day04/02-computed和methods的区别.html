@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    姓: <input type="text" v-model="firstName"><br>
+    名: <input type="text" v-model="lastName"><br>
+    <!-- 插值表达式实现 
+    建议不要在插值表达式中编写复杂的业务逻辑
+    如果需要可以将逻辑写在方法或者计算属性中-->
+    <!-- 姓名: {{ firstName + '-' + lastName }} <br> -->
+
+    <!-- methods实现 -->
+    <!-- 姓名: {{ getFullName() }} <br>
+    姓名: {{ getFullName() }} <br>
+    姓名: {{ getFullName() }} <br> -->
+
+    <!-- 计算属性实现 -->
+    姓名: {{ fullName }} <br>
+    姓名: {{ fullName }} <br>
+    姓名: {{ fullName }} <br>
+
+    <button @click="change">修改计算属性</button>
+  </div>
+  <script>
+    Vue.config.productionTip = false
+
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        firstName: '',
+        lastName: '',
+        // fullName: ''
+      },
+      methods: {
+        getFullName() {
+          // console.log(111)
+          return this.firstName + '-' + this.lastName
+        },
+        // 修改计算属性 发现报错 原因是缺少setter
+        change() {
+          this.fullName = '李-四'
+        }
+      },
+      // 计算属性computed: 计算属性的值本身不存在 是需要通过计算得到的 
+      // 底层也是通过object.defineProperty来实现的
+      // 特点: 
+      // 1、初次使用计算属性的时候会执行
+      // 2、当依赖的响应式数据发生变化的时候会执行
+      // computed 完整写法
+      computed: {
+      //   fullName: {
+      //     // 获取(使用)计算属性会执行get中的代码
+      //     // 将计算后的结果挂载到vm实例身上 
+      //     // 在页面上通过 {{ 计算属性名 }} 使用
+      //     get() {
+      //       return this.firstName + '-' + this.lastName
+      //     },
+      //     // 设置计算属性会执行set中的代码
+      //     // val表示的是需要修改的值
+      //     set(val){
+      //       // 李-四
+      //       let arr = val.split('-')
+      //       // ['李', '四']
+      //       this.firstName = arr[0]
+      //       this.lastName = arr[1]
+      //     }
+      //   }
+      // }
+
+      // 计算属性的简写
+      fullName(){
+        console.log(11111)
+        return this.firstName + '-' + this.lastName
+      }
+    }
+
+      // computed 与 methods的区别
+      // 1、是否存在缓存: methods调用一次执行一次 
+      // computed第一次调用时会将结果缓存 (有缓存)、后续调用在所依赖的数据不发生变化的前提下 直接返回缓存的结果 => 复用率高 提升性能
+      // 2、调用方式不同: methods使用时，一般情况需要加括号，而computed则不需要
+      // 3、绑定方式不同: methods是单向数据绑定 只有getter, computed是双向数据绑定, 有setter和getter
+
+      // 使用场景
+      // 某个属性的值需要来自多个属性的简单计算或者复杂逻辑计算得出的值时, 推荐使用computed属性, 比如购物车的总价计算
+      
+    });
+  </script>
+</body>
+
+</html>

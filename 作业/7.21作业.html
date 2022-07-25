@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <style>
+      input {
+        width: 190px;
+        border: none;
+        outline: none;
+        font-size: 18px;
+      }
+      td {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 添加按钮 -->
+      <button @click="add">添加表格</button>
+      <table border="1">
+        <!-- 标题区 -->
+        <thead>
+          <tr>
+            <th width="200">商品名称</th>
+            <th width="200">数量</th>
+            <th width="200">单价</th>
+            <th width="200">操作</th>
+          </tr>
+        </thead>
+        <!-- 内容区 -->
+        <tbody>
+          <tr v-for="(item) in body">
+            <td><input type="text" v-model="item.name" /></td>
+            <td><input type="text" v-model.number="item.num1" /></td>
+            <td><input type="text" v-model.number="item.num2" /></td>
+            <td><button @click="del(item.id)">删除</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- 输出结果 -->
+      合计: {{and}}
+    </div>
+    <script>
+      Vue.config.productionTip = false;
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          body: [{ id: 1, name: "", num1: "", num2: "" }],
+          nextId: "",
+        },
+        methods: {
+          // 添加新一行表格
+          add() {
+            let obj = { id: this.nextId, name: "", num1: "", num2: "" };
+            this.body.push(obj);
+            this.nextId++;
+          },
+          // 删除所在行表格
+          del(id) {
+            this.body.some((item, index) => {
+              if (item.id == id) {
+                this.body.splice(index, 1);
+              }
+              return true;
+            });
+          },
+        },
+        computed: {
+          // 每个商品总价获取并求和
+          and: {
+            get() {
+              const num = this.body.map((item) => {
+                return item.num1 * item.num2;
+              });
+              return num.reduce((a, b) => {
+                return Number(a) + Number(b);
+              },0);
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

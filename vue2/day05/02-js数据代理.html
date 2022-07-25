@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      var obj1 = { name: "zs", age: 18 };
+      var obj2 = { name: "xx", age: 20 };
+      // Object.defineProperty(obj2, 'name', {})
+      // Object.defineProperty(obj2, 'age', {})
+
+      Object.defineProperties(obj2, {
+        name: {
+          get() {
+            return obj1.name;
+          },
+          set(val) {
+            obj1.name = val;
+          },
+        },
+        age: {
+          get() {
+            return obj1.age;
+          },
+          set(val) {
+            obj1.name = val;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

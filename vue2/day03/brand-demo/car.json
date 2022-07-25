@@ -1,0 +1,22 @@
+{
+    "carList":[
+        {
+            "id": 1,
+            "brand": "宝马",
+            "status": false,
+            "time": "new Date()"
+        },
+        {
+            "id": 2,
+            "brand": "奔驰",
+            "status": true,
+            "time": "new Date()"
+        },
+        {
+            "id": 3,
+            "brand": "奥迪",
+            "status": false,
+            "time": "new Date()"
+        }
+    ]
+}

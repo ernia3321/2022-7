@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- <input type="text" v-focus> -->
+
+    <p>{{ number }}</p>
+    自定义指令: <p v-two-double.flag="number"></p>
+    <button @click="number += 1">++</button>
+    <hr>
+    <p>{{ age }}</p>
+    <button @click="age += 1">++</button>
+
+    <hr>
+    自动聚焦: <input id="ax" type="text" v-focus v-if="flag"><br>
+    <button @click="del">移除元素</button>
+  </div>
+  <script>
+    // ctrl+shift+k 删除当前行
+    Vue.config.productionTip = false
+
+    // 1、自定义指令什么时候会被执行 ?
+    // - 指令与页面元素绑定成功时(页面一打开)
+    // - 自定义指令所在的vue模板被重新解析时
+
+    // 函数式写法
+    Vue.directive('two-double', (el, binding) => {
+      el.innerText = binding.value * 2
+    })
+
+    // Vue.directive('focus', (el, binding) => {
+    //   // 聚焦失败 原因是此时元素并没有渲染到页面上
+    //   el.focus()
+    // })
+
+    // 对象式写法
+    Vue.directive('focus', {
+      // 指令与元素成功绑定时调用
+      bind(el,binding){
+        el.style.backgroundColor = 'skyblue'
+      },
+      // 指令所在元素被插入页面时调用
+      inserted(el,binding){
+        el.focus()
+      },
+      // 指令所在模板结构被重新解析时调用
+      update(el,binding) {
+        console.log('update')
+      },
+      unbind(){
+        console.log('unbind')
+      }
+    })
+
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        number: 1,
+        age: 1,
+        flag: true
+      },
+      methods: {
+        del(){
+          this.flag = false
+        }
+      },
+      // 局部自定义指令
+      // directives: {}
+    });
+  </script>
+</body>
+
+</html>

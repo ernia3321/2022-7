@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 配合css样式用来解决页面闪烁问题 => {{xxx}}
+        当数据渲染到插值表达式中 vue会删除掉v-cloak属性
+    -->
+    <p v-cloak>{{ msg }}</p>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script>
+    Vue.config.productionTip = false
+
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        msg: 'hello ~'
+      },
+      methods: {}
+    });
+  </script>
+</body>
+
+</html>

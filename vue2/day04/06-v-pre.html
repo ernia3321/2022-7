@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+  <!-- 浏览器解析引擎遇到vue的插值符号时会自动解析，
+    当你想输出不被解析的纯文本时，可以使用v-pre指令。 
+    跳过编译检查环节(没有使用指令语法和插值语法的节点) 
+    当作静态内容输出，从而加快编译
+    -->
+  <div id="app">
+    <p >{{msg}}</p>
+    <p v-pre>
+    <p v-pre>门前大桥下 {{msg}} v-</p>
+    门前大桥下游过一群鸭
+    快来快来数一数 二四六七八</p>
+  </div>
+  <script>
+    Vue.config.productionTip = false
+
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        msg: 2,
+      },
+      methods: {}
+    });
+  </script>
+</body>
+
+</html>
