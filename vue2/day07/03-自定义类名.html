@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <style>
+    /* v-enter 【这是一个时间点】 是进入之前，元素的起始状态，此时还没有开始进入 */
+    /* v-leave-to 【这是一个时间点】 是动画离开之后，离开的终止状态，此时，元素 动画已经结束了 */
+    .v-enter,
+    .v-leave-to {
+      opacity: 0;
+      transform: translateX(150px);
+    }
+    /* v-enter-to 定义进入过渡的结束状态 */
+    /* v-leave 定义离开过渡的开始状态 */
+    .v-enter-to,
+    .v-leave {
+      opacity: 1;
+    }
+    /* v-enter-active 【入场动画的时间段】 */
+    /* v-leave-active 【离场动画的时间段】 */
+    .v-enter-active,
+    .v-leave-active {
+      transition: all 1s ease;
+    }
+
+    /* 自定义类名 */
+    .my-enter,
+    .my-leave-to {
+      opacity: 0;
+      transform: translateY(150px);
+    }
+    .my-enter-to,
+    .my-leave {
+      opacity: 1;
+    }
+    .my-enter-active,
+    .my-leave-active {
+      transition: all 1s ease;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <button @click="flag=!flag">切换</button>
+    <!-- 需要添加过渡效果的元素 使用transition组件包起来 -->
+    <transition>
+      <h3 v-show="flag">鲜衣怒马少年时 一日看尽长安花</h3>
+    </transition>
+    <hr>
+    <button @click="flag2=!flag2">切换2</button>
+    <!-- 通过name属性自定义类名 -->
+    <transition name="my">
+      <h3 v-show="flag2"> 不知道说啥~ </h3>
+    </transition>
+
+  </div>
+  <script>
+    Vue.config.productionTip = false
+
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        flag: true,
+        flag2: true
+      },
+      methods: {}
+    });
+  </script>
+</body>
+
+</html>
